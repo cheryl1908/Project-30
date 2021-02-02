@@ -1,4 +1,4 @@
-class Polygon{
+class SlingShot{
     constructor(bodyA, pointB){
         var options = {
             bodyA: bodyA,
@@ -7,24 +7,22 @@ class Polygon{
             length: 10
         }
         this.pointB = pointB
-        this.image1 =loadImage("polygon.png");
-        this.polygon = Constraint.create(options);
+        //this.image1 =loadImage("polygon.png");
+        this.sling = Constraint.create(options);
         World.add(world, this.sling);
     }
-    attach(body){
-        this.sling.bodyA = body;
-    }
-    
+
     fly(){
-        this.polygon.bodyA = null;
+        this.sling.bodyA = null;
     }
 
     display(){
-        image(this.image1,200,20);
+        //image(this.image1,200,20);
         if(this.sling.bodyA){
             var pointA = this.sling.bodyA.position;
             var pointB = this.pointB;
-            image(this.image3,pointA.x+25,pointA.y-10,15,30);
+            //image(this.image3,pointA.x+25,pointA.y-10,15,30);
+            line(pointA.x, pointA.y, pointB.x, pointB.y);
          }
     }
 }

@@ -4,43 +4,58 @@ const Bodies = Matter.Bodies;
 const Constraint = Matter.Constraint;
 
 var engine, world;
+var box1, pig1;
+var backgroundImg,platform;
+var bird, slingShot;
+
 function preload() {
+    polygon_img=loadImage("polygon.png");
     }
 
 function setup(){
     var canvas = createCanvas(800,400);
     engine = Engine.create();
     world = engine.world;
-
-    var stand= new Stand(340,500,100,20);
+ground = new Ground();
+stand1 = new Stand(390,300,250,10);
    
-    var block1= new Blocks(120,275,30,40);
-    var block2= new Blocks(150,275,30,40);
-    var block3= new Blocks(180,275,30,40);
-    var block4= new Blocks(210,275,30,40);
-    var block5= new Blocks(240,275,30,40); 
-    var block6= new Blocks(270,275,30,40);
-    var block7= new Blocks(300,275,40);
+block1 = new Block(300,275,30,40);
+ console.log(block1); 
+ block2 = new Block(330,275,30,40); 
+ block3 = new Block(360,275,30,40); 
+ block4 = new Block(390,275,30,40); 
+ block5 = new Block(420,275,30,40); 
+ block6 = new Block(450,275,30,40); 
+ block7 = new Block(480,275,30,40); 
+ block8 = new Block(330,235,30,40);
+  block9 = new Block(360,235,30,40); 
+  block10 = new Block(390,235,30,40); 
+  block11 = new Block(420,235,30,40); 
+  block12 = new Block(450,235,30,40); 
+  block13 = new Block(360,195,30,40); 
+  block14 = new Block(390,195,30,40); 
+  block15 = new Block(420,195,30,40); 
+  block16 = new Block(390,155,30,40);
 
-    var block8= new Blocks(330,235,30,40);
-    var block9= new Blocks(360,235,30,40);
-    var block10= new Blocks(390,235,30,40);
-    var block11= new Blocks(420,235,30,40);
-    var block12= new Blocks(450,235,30,40);
 
-    var block13= new Blocks(360,195,30,40);
-    var block14= new Blocks(390,195,30,40);
-    var block15= new Blocks(420,195,30,40);
 
-    var block16= new Blocks(390,155,30,40);
+    //added for polygon image and slingshot
+
+    //ball holder with slings
+  ball = Bodies.circle(50,200,20);
+  World.add(world,ball);
+
+  slingShot = new SlingShot(ball,{x:100,y:200});
 }
 
 function draw(){
-    background(backgroundImg);
+    background(56,44,44); 
+ 
     Engine.update(engine);
+    ground.display();
     strokeWeight(4);
 
-    stand.display();
+    stand1.display();
     block1.display();
     block2.display();
     block3.display();
@@ -59,17 +74,19 @@ function draw(){
     block14.display();
     block15.display();
     block16.display();
+
+    //added code to display
+      fill("gold");
+  imageMode(CENTER)
+  image(polygon_img ,ball.position.x,ball.position.y,40,40);
+
+  slingShot.display();
 }
 function mouseDragged(){
-    Matter.Body.setPosition(polygon.body, {x: mouseX , y: mouseY});
+    Matter.Body.setPosition(ball,{x:mouseX,y:mouseY});
 }
 
 
 function mouseReleased(){
-    Polygon.fly();
-}
-function keyPressed(){
-    if(keyCode === 32){
-        sling.attach(polygon.body);
-    }
+    slingShot.fly();
 }
